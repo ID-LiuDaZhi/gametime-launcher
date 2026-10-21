@@ -7,6 +7,15 @@
 !/assets/
 !/docs/
 !/源码/
+!/.github/
+!/release/
+!/downloads/
+/.github/*
+!/.github/workflows/
+/.github/workflows/*
+!/.github/workflows/preview-download.yml
+/downloads/*
+!/downloads/GameTime.exe
 /源码/*
 !/源码/*.cs
 !/源码/*.ps1

@@ -1,0 +1,64 @@
+name: Build preview download
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/preview-download.yml'
+      - 'release/**'
+      - 'downloads/GameTime.exe'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-download
+  cancel-in-progress: false
+
+jobs:
+  portable-preview:
+    runs-on: windows-2025
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check local game and multi-phone logic
+        shell: pwsh
+        run: |
+          ./源码/Test-Library.ps1
+          ./源码/Test-MultiplePhones.ps1
+          node --input-type=module -e "import {readFile} from 'node:fs/promises'; import {testMobilePage} from './源码/Test-MobilePage.mjs'; console.log(await testMobilePage(await readFile('./源码/remote.html','utf8')))"
+      - name: Build and inspect a clean portable package
+        id: package
+        shell: pwsh
+        run: ./release/Build-PortablePreview.ps1
+      - name: Publish prerelease download
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_DIR: ${{ steps.package.outputs.artifact_dir }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $PSNativeCommandUseErrorActionPreference=$false
+          $version=(Get-Content ./release/version.txt -Raw).Trim()
+          $tag="v$version"
+          $existing=gh release view $tag --repo $env:GITHUB_REPOSITORY --json isDraft --jq '.isDraft' 2>$null
+          if($LASTEXITCODE -eq 0 -and $existing -eq 'false') {
+            Write-Output "Published release $tag already exists; keeping its assets unchanged."
+            exit 0
+          }
+          $zip=Join-Path $env:ARTIFACT_DIR "GameTime-Windows-v$version.zip"
+          $exe=Join-Path $env:ARTIFACT_DIR 'GameTime.exe'
+          $hash=Join-Path $env:ARTIFACT_DIR 'SHA256SUMS.txt'
+          if($existing -eq 'true') {
+            gh release upload $tag $zip $exe $hash --repo $env:GITHUB_REPOSITORY --clobber
+          } else {
+            gh release create $tag $zip $exe $hash --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --draft --prerelease --title "游戏时光 $version · 游戏大厅预览版" --notes-file ./release/notes.md
+          }
+          if($LASTEXITCODE -ne 0){throw '创建草稿或上传附件失败'}
+          gh release edit $tag --repo $env:GITHUB_REPOSITORY --draft=false --prerelease --notes-file ./release/notes.md
+          if($LASTEXITCODE -ne 0){throw '发布预览版失败'}

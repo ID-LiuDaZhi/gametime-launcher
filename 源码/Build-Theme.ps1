@@ -1,3 +1,4 @@
+param([switch]$DesktopPreview)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $app = Join-Path $root 'Playnite'
@@ -20,6 +21,18 @@ foreach ($key in $palette.Keys) { $constants = $constants.Replace($key,$palette[
 $constants = $constants.Replace('{DynamicResource FontTitilliumWebLight}','Microsoft YaHei UI')
 $constants | Set-Content (Join-Path $theme 'Constants.xaml') -Encoding UTF8
 $main = Get-Content (Join-Path $PSScriptRoot 'Main.xaml') -Raw
+if($DesktopPreview){
+ $xml=[xml]$main
+ $ns=[Xml.XmlNamespaceManager]::new($xml.NameTable)
+ $ns.AddNamespace('p','http://schemas.microsoft.com/winfx/2006/xaml/presentation')
+ $ns.AddNamespace('x','http://schemas.microsoft.com/winfx/2006/xaml')
+ $phoneButton=$xml.SelectSingleNode('//p:Button[@x:Name="GameTime_RemoteButton"]',$ns)
+ if($phoneButton){$null=$phoneButton.ParentNode.RemoveChild($phoneButton)}
+ $phonePanel=$xml.SelectSingleNode('//p:Border[@Grid.Column="1"]',$ns)
+ if($phonePanel){$null=$phonePanel.ParentNode.RemoveChild($phonePanel)}
+ foreach($column in $xml.SelectNodes('//p:ColumnDefinition[@Width="310"]',$ns)){$column.SetAttribute('Width','0')}
+ $main=$xml.OuterXml
+}
 $main | Set-Content (Join-Path $theme 'Views\Main.xaml') -Encoding UTF8
 Copy-Item (Join-Path $PSScriptRoot 'ListGameItemTemplate.xaml') (Join-Path $theme 'DerivedStyles\ListGameItemTemplate.xaml') -Force
 $item = Get-Content (Join-Path $app 'Themes\Fullscreen\Default\DerivedStyles\ListGameItemStyle.xaml') -Raw

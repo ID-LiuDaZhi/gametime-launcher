@@ -2,7 +2,16 @@
 
 面向 Windows 的中文游戏大厅：用 3D 手绘风格界面展示本地游戏，使用 Xbox 手柄选择并启动游戏。基于 [Playnite](https://github.com/JosefNemec/Playnite) 的全屏模式扩展，另含正在开发的多手机局域网遥控。
 
-> **当前为开发源码版本。** 手机遥控的控制逻辑和模拟页面测试已通过，但新版 EXE 在本地部署时被 Windows 拦截，尚未完成服务部署和真实手机扫码验收。本仓库不提供已验收的 EXE 安装包，不建议通过关闭系统防护来处理该检测。
+> **当前提供基础游戏大厅预览版，手机遥控仍处于开发阶段。** 手机遥控的控制逻辑和模拟页面测试已通过，但包含联网服务的新版 EXE 在本地部署时被 Windows 拦截，尚未完成服务部署和真实手机扫码验收。下载预览版不启用手机服务，不建议通过关闭系统防护来处理开发版检测。
+
+## EXE 下载
+
+- **推荐：[完整便携包与校验文件](https://github.com/ID-LiuDaZhi/gametime-launcher/releases/tag/v0.1.0-preview)**。下载 `GameTime-Windows-v0.1.0-preview.zip`，完整解压后打开 `GameTime\GameTime.exe`，保留旁边的 `Playnite` 文件夹。
+- [单独下载启动器 GameTime.exe](https://github.com/ID-LiuDaZhi/gametime-launcher/raw/refs/heads/main/downloads/GameTime.exe)：只适用于已有配套目录的情况，单独下载不能打开完整游戏大厅。
+
+基础启动器 SHA-256：`08ef8d8a0c322a2cc48a7486348d6d14668ae7fe153e8b0efaaf9889aa6069e4`。
+
+预览下载不包含游戏，也不启用二维码面板。默认扫描 `G:\APP`；没有该目录时可通过配套的 Playnite 桌面模式手动添加游戏。完整包由仓库发布流程从经过校验的官方 Playnite 便携包组装；具体范围见 [预览版说明](release/notes.md)。
 
 ## 界面方向
 
@@ -101,6 +110,6 @@ pwsh -File .\源码\Test-MultiplePhones-Live.ps1
 
 ## 仓库内容与第三方依赖
 
-本仓库仅包含项目源码、说明和设计素材，不包含游戏本体、Playnite 安装目录、第三方编译库、旧版 EXE、游戏存档、运行日志、本机网络会话或二维码连接凭证。
+本仓库包含项目源码、说明、设计素材及 `downloads/GameTime.exe` 基础启动器。源码仓库不包含游戏本体、个人 Playnite 安装目录、游戏存档、运行日志、本机网络会话或二维码连接凭证。Release 的完整便携包另包含经过校验的官方 Playnite 运行时和相应许可。
 
 Playnite、QRCoder 及相关主题资源的权利属于各自作者，详见 [THIRD_PARTY.md](THIRD_PARTY.md)。本项目不是 Playnite 或 Xbox 官方产品。
