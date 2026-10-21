@@ -1,0 +1,22 @@
+# Publish an explicit source-only project, never the local runtime or pairing data.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/THIRD_PARTY.md
+!/assets/
+!/docs/
+!/源码/
+/源码/*
+!/源码/*.cs
+!/源码/*.ps1
+!/源码/*.psm1
+!/源码/*.xaml
+!/源码/*.html
+!/源码/*.mjs
+/assets/*
+!/assets/paper-room.png
+/docs/*
+!/docs/design-concept.png
+!/docs/STATUS.md
+!/docs/Playnite-MIT.txt

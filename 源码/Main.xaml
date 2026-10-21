@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ <Style TargetType="{x:Type Main}"><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="{x:Type Main}">
+  <Grid x:Name="PART_MainHost" Background="#F6EEDD">
+   <Grid x:Name="PART_ViewHost">
+    <Image Source="{ThemeFile 'Images/paper-room.png'}" Stretch="UniformToFill"/>
+    <Grid Margin="90,30,70,25">
+     <Grid.RowDefinitions><RowDefinition Height="120"/><RowDefinition Height="*"/><RowDefinition Height="115"/></Grid.RowDefinitions>
+     <Grid><StackPanel Margin="300,0,0,0"><TextBlock Text="游戏时光" FontFamily="KaiTi" FontSize="56" FontWeight="Bold" Foreground="#303A29"/><TextBlock Text="我的游戏  /  今天也一起冒险吧" FontFamily="Microsoft YaHei UI" FontSize="20" Foreground="#6B705D" Margin="5,5,0,0"/></StackPanel>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"><TextBlock x:Name="PART_TextClock" FontSize="26" Foreground="#46503C" Margin="20"/><Button x:Name="GameTime_FullscreenButton" Content="全屏" FontFamily="Microsoft YaHei UI" FontSize="22" Padding="18,12" Margin="0,0,10,0" Background="#E9DEC6"/><Button x:Name="GameTime_RemoteButton" Content="手机遥控" FontFamily="Microsoft YaHei UI" FontSize="22" Padding="18,12" Margin="0,0,10,0" Background="#E9DEC6"/><ButtonEx x:Name="PART_ButtonMainMenu" Content="设置" FontFamily="Microsoft YaHei UI" FontSize="24" Padding="22,12" Background="#E9DEC6"/></StackPanel>
+     </Grid>
+     <Grid Grid.Row="1" Margin="110,12,10,20"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="310"/></Grid.ColumnDefinitions><ListBoxEx x:Name="PART_ListGameItems" Background="Transparent" BorderThickness="0" KeyboardNavigation.DirectionalNavigation="Once" Margin="0,0,35,0"/>
+      <Border Grid.Column="1" VerticalAlignment="Center" Background="#F5FFF9EB" BorderBrush="#D6C39E" BorderThickness="2,2,2,6" CornerRadius="24" Padding="20,25"><StackPanel><TextBlock Text="手机扫码遥控" FontFamily="Microsoft YaHei UI" FontSize="25" FontWeight="Bold" TextAlignment="Center" Foreground="#394832"/><TextBlock Text="手机与电脑连接同一局域网" FontSize="15" TextAlignment="Center" Foreground="#6B705D" Margin="0,12,0,15"/><Border Background="White" Padding="8" CornerRadius="10"><Image x:Name="GameTime_QrImage" Width="228" Height="228" RenderOptions.BitmapScalingMode="NearestNeighbor"/></Border><TextBlock x:Name="GameTime_RemoteAddress" Text="正在准备连接…" FontSize="17" TextAlignment="Center" Foreground="#50763D" Margin="0,15,0,0"/><TextBlock Text="扫码后可选游戏、开始游玩&#10;连接不上可点上方“手机遥控”切换地址" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Foreground="#6B705D" Margin="0,12,0,0"/></StackPanel></Border>
+      <TextBlock Text="还没有游戏，请检查 G:\APP 后重新打开" FontFamily="Microsoft YaHei UI" Foreground="#4C513F" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding Items.Count,ElementName=PART_ListGameItems}" Value="0"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+     </Grid>
+     <Grid Grid.Row="2" Background="#E6F5EDDB"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+      <Border Background="#50763D" CornerRadius="24" BorderThickness="2,2,2,6" BorderBrush="#38562D" VerticalAlignment="Center" Padding="15,8"><Border.Effect><DropShadowEffect Color="#58452A" BlurRadius="16" ShadowDepth="6" Opacity="0.25"/></Border.Effect><ButtonEx x:Name="PART_ButtonPlay" Style="{DynamicResource ButtonBottomMenu}" Content="开始游戏" Foreground="White"/></Border>
+      <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="30,0"><TextBlock Text="G:\APP · 本地游戏库" FontSize="18" Foreground="#5C6350" FontFamily="Microsoft YaHei UI"/><TextBlock Text="十字键 / 左摇杆 切换游戏 · A 开始 · B 返回" FontSize="18" Foreground="#5C6350" FontFamily="Microsoft YaHei UI" Margin="0,10,0,0"/></StackPanel>
+      <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"><ButtonEx x:Name="PART_ButtonDetails" Style="{DynamicResource ButtonBottomMenu}" Content="详情"/><ButtonEx x:Name="PART_ButtonGameOptions" Style="{DynamicResource ButtonBottomMenu}" Content="选项"/></StackPanel>
+     </Grid>
+    </Grid>
+   </Grid>
+   <GameDetails x:Name="PART_ElemGameDetails"/><GameStatus x:Name="PART_ElemGameStatus"/>
+  </Grid>
+ </ControlTemplate></Setter.Value></Setter></Style>
+</ResourceDictionary>
+
+
+
