@@ -6,8 +6,9 @@
 
 ## EXE 下载
 
-- **推荐：[完整便携包与校验文件](https://github.com/ID-LiuDaZhi/gametime-launcher/releases/tag/v0.1.0-preview)**。下载 `GameTime-Windows-v0.1.0-preview.zip`，完整解压后打开 `GameTime\GameTime.exe`，保留旁边的 `Playnite` 文件夹。
-- [单独下载启动器 GameTime.exe](https://github.com/ID-LiuDaZhi/gametime-launcher/raw/refs/heads/main/downloads/GameTime.exe)：只适用于已有配套目录的情况，单独下载不能打开完整游戏大厅。
+- **推荐：[直接下载完整便携包 ZIP（约 212 MB）](https://github.com/ID-LiuDaZhi/gametime-launcher/releases/download/v0.1.0-preview/GameTime-Windows-v0.1.0-preview.zip)**。完整解压后打开 `GameTime\GameTime.exe`，保留旁边的 `Playnite` 文件夹。
+- [单独下载启动器 GameTime.exe（4.5 KB）](https://github.com/ID-LiuDaZhi/gametime-launcher/releases/download/v0.1.0-preview/GameTime.exe)：只适用于已有配套目录的情况，单独下载不能打开完整游戏大厅。
+- [版本说明和所有附件](https://github.com/ID-LiuDaZhi/gametime-launcher/releases/tag/v0.1.0-preview) · [SHA-256 校验文件](https://github.com/ID-LiuDaZhi/gametime-launcher/releases/download/v0.1.0-preview/SHA256SUMS.txt)。
 
 基础启动器 SHA-256：`08ef8d8a0c322a2cc48a7486348d6d14668ae7fe153e8b0efaaf9889aa6069e4`。
 
