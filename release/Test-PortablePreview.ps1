@@ -13,6 +13,10 @@ $null=[xml]$main
 if($main -match 'GameTime_QrImage|GameTime_RemoteButton'){throw '预览版不应显示未启用的扫码入口'}
 $info=Get-Content (Join-Path $Directory 'release-info.json') -Raw | ConvertFrom-Json
 if($info.phoneRemoteEnabled){throw '预览版不得启用手机服务'}
-$forbidden=Get-ChildItem -LiteralPath $Directory -Recurse -File | Where-Object { $_.Name -match '^(session|state|clients)\.json$|^server\.alive$|^qr\.png$|\.log$|\.db$' }
+$officialCatalogRoot=[IO.Path]::GetFullPath((Join-Path $Directory 'Playnite\Emulation\Database'))+[IO.Path]::DirectorySeparatorChar
+$forbidden=Get-ChildItem -LiteralPath $Directory -Recurse -File | Where-Object {
+ $_.Name -match '^(session|state|clients)\.json$|^server\.alive$|^qr\.png$|\.log$' -or
+ ($_.Extension -eq '.db' -and !$_.FullName.StartsWith($officialCatalogRoot,[StringComparison]::OrdinalIgnoreCase))
+}
 if($forbidden){throw ('便携包混入了运行数据：'+($forbidden.Name -join ', '))}
 'PASS: 便携文件完整、EXE 校验、中文全屏配置、扫码入口禁用、无个人运行数据'
